@@ -32,11 +32,11 @@ def simplex_naive(
         c=c,
         A=A,
         b=b,
-        basic_indices=[0, 2, 5, 6],
-        max_iter = 100
+        basic_indices=[3, 4, 5, 6],
+        max_iter=100
 ):
     iteration = 0
-    while True: # Iterate
+    while True:  # Iterate
         ###
         iteration += 1
         if iteration > max_iter:
@@ -44,7 +44,7 @@ def simplex_naive(
         print(f"Iteration {iteration}:")
 
         ### Make the basis matrix
-        print(f"\tbasic_indices = {basic_indices}") # Display the basic indices
+        print(f"\tbasic_indices = {basic_indices}")  # Display the basic indices
         B = A[:, basic_indices]
 
         ### Calculate the basic solution associated with the basis
@@ -53,7 +53,7 @@ def simplex_naive(
             x[basic_indices] = np.linalg.solve(B, b)
         except np.linalg.LinAlgError:
             raise RuntimeError("Basis is not invertible!")
-        print(f"\tx = {x}") # Display the basic solution
+        print(f"\tx = {x}")  # Display the basic solution
 
         ### Check if the basic solution is feasible
         if np.any(x < 0):
@@ -69,7 +69,7 @@ def simplex_naive(
             break
 
         ### Choose which new index should enter the basis
-        for index in range(n): # Get the first non-basic index with negative reduced cost
+        for index in range(n):  # Get the first non-basic index with negative reduced cost
             if reduced_costs[index] < 0 and index not in basic_indices:
                 entering_index = index
                 break
@@ -116,4 +116,4 @@ def simplex_naive(
 
 
 if __name__ == '__main__':
-    simplex_naive(basic_indices=[0,1,3,5])
+    simplex_naive()
